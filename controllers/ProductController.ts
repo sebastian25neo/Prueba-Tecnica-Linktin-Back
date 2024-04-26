@@ -16,13 +16,17 @@ export const ProductController = {
         }
     },
     createProduct: (req: Request, res: Response) => {
-        const { nombre, precio } = req.body;
-        const nuevoProducto = ProductService.createProduct({ id:0, nombre, precio });
-        res.status(201).json(nuevoProducto);
+        const { nombre, precio, description } = req.body;
+        const nuevoProducto = ProductService.createProduct({ id:0, nombre, precio , description });
+        if (nuevoProducto) {
+            res.status(201).json({ message: 'Se creó el producto correctamente' });
+        } else {
+            res.status(404).json({ message: 'No se ha creado correctamente el producto' });
+        }
     },
     updateProduct: (req: Request, res: Response) => {
-        const { id ,nombre, precio } = req.body;
-        const UpdateProducto = ProductService.updateProduct({ id, nombre, precio });    
+        const { id ,nombre, precio, description } = req.body;
+        const UpdateProducto = ProductService.updateProduct({ id, nombre, precio,description });    
         if (UpdateProducto) {
             res.status(201).json(UpdateProducto);
         } else {
